@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Matrix</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #000;
+            color: #0F0;
+            margin: 0;
+            overflow: hidden;
+        }
+        .tabs-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+        .tabs-menu {
+            color: #0F0;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .tabs-menu-active {
+            font-weight: bold;
+        }
+        .tabs-panel {
+            display: none;
+        }
+        .tabs-panel.fadeInDown {
+            display: block;
+            animation: fadeInDown 1s;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translate3d(0, -100%, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            animation: fadeIn 1s;
+        }
+        .footer a {
+            color: #0F0;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tabs-container">
+        <a class="tabs-menu tabs-menu-active" data-target="tab1" href="#">Contact Me</a>
+        <a class="tabs-menu" data-target="tab2" href="about.html">About Me</a>
+        <a class="tabs-menu" data-target="tab3" href="david-adly.html">David Adly</a>
+    </div>
+    <div id="tab1" class="tabs-panel fadeInDown">
+        <!-- Tab 1 content goes here -->
+        <h2>Contact Me</h2>
+        <p>Please feel free to contact me using the information below:</p>
+        <ul>
+            <li>Email: contact@example.com</li>
+            <li>Phone: +1 123 456 7890</li>
+            <li>Address: 123 Main Street, City, Country</li>
+        </ul>
+    </div>
+    <canvas id="matrixCanvas"></canvas>
+    <div class="footer">
+        &copy; 2023 Animated Matrix. All rights reserved. | Designed by <a href="https://www.example.com">Your Name</a>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

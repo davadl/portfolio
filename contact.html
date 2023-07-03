@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Me</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <style>
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #000;
+            color: #0F0;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            margin: 20px;
+            animation: fadeInDown 1s;
+        }
+        .container h2 {
+            margin-bottom: 10px;
+        }
+        .container ul {
+            margin-top: 0;
+            padding-left: 20px;
+        }
+        .container li {
+            margin-bottom: 5px;
+        }
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translate3d(0, -100%, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            animation: fadeIn 1s;
+        }
+        .footer a {
+            color: #0F0;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+        .return-home {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 12px;
+            animation: fadeIn 1s;
+        }
+        .return-home a {
+            color: #0F0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Contact Me</h2>
+        <p>Please feel free to contact me using the information below:</p>
+        <ul>
+            <li>Email: contact@example.com</li>
+            <li>Phone: +1 123 456 7890</li>
+            <li>Address: 123 Main Street, City, Country</li>
+        </ul>
+    </div>
+    <div class="footer">
+        &copy; 2023 Animated Matrix. All rights reserved. | Designed by <a href="https://www.example.com">Your Name</a>
+    </div>
+    <div class="return-home">
+        <a href="index.html">Return Home</a>
+    </div>
+</body>
+</html>

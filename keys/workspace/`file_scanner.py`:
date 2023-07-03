@@ -1,0 +1,11 @@
+class FileScanner:
+    def __init__(self, project_folder):
+        self.project_folder = project_folder
+
+    def scan_files(self):
+        # Code to scan the project folder and retrieve the list of files
+        pass
+
+    def read_file(self, file_path):
+        # Code to read the content of a file
+        pass

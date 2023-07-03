@@ -1,0 +1,11 @@
+class PhotoViewer:
+    def __init__(self, photo_folder):
+        self.photo_folder = photo_folder
+
+    def gather_photos(self):
+        # Code to gather photos from the specified source or folder
+        pass
+
+    def display_photos(self):
+        # Code to display the gathered photos in the photo tab and the separate page
+        pass
