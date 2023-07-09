@@ -1,4 +1,3 @@
-
 // Matrix Animation
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
@@ -61,17 +60,19 @@ const panels = document.querySelectorAll('.tabs-panel');
 
 tabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = tab.getAttribute('data-target');
+        if (tab.classList.contains('tabs-menu-navigate')) {
+            e.preventDefault();
+            const target = tab.getAttribute('data-target');
 
-        tabs.forEach(t => t.classList.remove('tabs-menu-active'));
-        panels.forEach(panel => {
-            panel.classList.remove('fadeInDown');
-            panel.style.display = 'none';
-        });
+            tabs.forEach(t => t.classList.remove('tabs-menu-active'));
+            panels.forEach(panel => {
+                panel.classList.remove('fadeInDown');
+                panel.style.display = 'none';
+            });
 
-        tab.classList.add('tabs-menu-active');
-        document.getElementById(target).classList.add('fadeInDown');
-        document.getElementById(target).style.display = 'block';
+            tab.classList.add('tabs-menu-active');
+            document.getElementById(target).classList.add('fadeInDown');
+            document.getElementById(target).style.display = 'block';
+        }
     });
 });

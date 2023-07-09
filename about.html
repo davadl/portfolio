@@ -1,74 +1,116 @@
 <!DOCTYPE html>
+
 <html>
-<head>
+  <head>
     <title>About Me</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link href="css/styles.css" rel="stylesheet" type="text/css" />
     <style>
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background-color: #000;
-            color: #0F0;
-            margin: 0;
-            overflow: hidden;
+      body {
+        font-family: "JetBrains Mono", monospace;
+        background-color: #000;
+        color: #0f0;
+        margin: 0;
+        overflow: hidden;
+      }
+      .container {
+        margin: 20px;
+        animation: fadeInDown 1s;
+      }
+      .container h2 {
+        margin-bottom: 10px;
+      }
+      .container p {
+        margin-bottom: 15px;
+      }
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translate3d(0, -100%, 0);
         }
-        .container {
-            margin: 20px;
-            animation: fadeInDown 1s;
+        to {
+          opacity: 1;
+          transform: translate3d(0, 0, 0);
         }
-        .container h2 {
-            margin-bottom: 10px;
-        }
-        .container p {
-            margin-bottom: 15px;
-        }
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translate3d(0, -100%, 0);
-            }
-            to {
-                opacity: 1;
-                transform: translate3d(0, 0, 0);
-            }
-        }
-        .footer {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-size: 12px;
-            animation: fadeIn 1s;
-        }
-        .footer a {
-            color: #0F0;
-            text-decoration: none;
-            margin-left: 5px;
-        }
-        .return-home {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            font-size: 12px;
-            animation: fadeIn 1s;
-        }
-        .return-home a {
-            color: #0F0;
-            text-decoration: none;
-        }
+      }
+      .footer {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        font-size: 12px;
+        animation: fadeIn 1s;
+      }
+      .footer a {
+        color: #0f0;
+        text-decoration: none;
+        margin-left: 5px;
+      }
+      .return-home {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        font-size: 12px;
+        animation: fadeIn 1s;
+      }
+      .return-home a {
+        color: #0f0;
+        text-decoration: none;
+      }
+      .tabs-container {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+      }
+
+      .tabs-menu {
+        color: #0f0;
+        text-decoration: none;
+        margin-right: 10px;
+      }
+
+      .tabs-menu-active {
+        font-weight: bold;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="tabs-container">
+      <a class="tabs-menu tabs-menu-active" data-target="tab1" href="#"
+        >Contact Me</a
+      >
+      <a class="tabs-menu" data-target="tab2" href="about.html">About Me</a>
+      <a class="tabs-menu" data-target="tab3" href="david-adly.html"
+        >David Adly</a
+      >
+      <a class="tabs-menu" data-target="tab4" href="master.html">Painter</a>
+    </div>
     <div class="container">
-        <h2>About Me</h2>
-        <p>Hello, I'm John Doe, a web developer with a passion for creating amazing user experiences.</p>
-        <p>I have several years of experience in front-end development, working with HTML, CSS, and JavaScript. I specialize in creating responsive and interactive websites that are both visually appealing and user-friendly.</p>
-        <p>In my free time, I enjoy experimenting with new web technologies and staying up to date with the latest trends in the industry. I'm always excited to take on new projects and collaborate with like-minded individuals.</p>
+      <h2>About Me</h2>
+      <p>
+        Hello, I'm John Doe, a web developer with a passion for creating amazing
+        user experiences.
+      </p>
+      <p>
+        I have several years of experience in front-end development, working
+        with HTML, CSS, and JavaScript. I specialize in creating responsive and
+        interactive websites that are both visually appealing and user-friendly.
+      </p>
+      <p>
+        In my free time, I enjoy experimenting with new web technologies and
+        staying up to date with the latest trends in the industry. I'm always
+        excited to take on new projects and collaborate with like-minded
+        individuals.
+      </p>
     </div>
     <div class="footer">
-        &copy; 2023 Animated Matrix. All rights reserved. | Designed by <a href="https://www.example.com">Your Name</a>
+      © 2023 Animated Matrix. All rights reserved. | Designed by
+      <a href="https://www.example.com">Your Name</a>
     </div>
     <div class="return-home">
-        <a href="index.html">Return Home</a>
+      <a href="index.html">Return Home</a>
     </div>
-</body>
+  </body>
 </html>

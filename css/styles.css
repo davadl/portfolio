@@ -1,0 +1,140 @@
+canvas#matrixCanvas {
+    pointer-events: none;
+}
+body {
+    background-color: #000000;
+}
+.return-home a {
+    color: #0f0;
+    text-decoration: none;
+  }
+/* 
+.marquee {
+    font-size: 2vw;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    height: 2.5vw;
+    overflow: hidden;
+    background-color: #000;
+    position: relative;
+}
+
+.marquee div {
+    display: block;
+    width: 200%;
+    position: absolute;
+    overflow: hidden;
+    animation: marquee 12s linear infinite;
+}
+
+.marquee span {
+    float: left;
+    width: 50%;
+}
+
+@keyframes marquee {
+    0% { left: 0; }
+    100% { left: -100%; }
+}
+
+* { margin: 0; padding: 0; }
+body { background: #000; }
+canvas { display: block; }
+
+.tabs-container {
+    width: 100%;
+}
+
+div#tabs-nav {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+}
+
+div#tabs-nav a:nth-child(even) {
+    margin: 0 3px;
+}
+
+a.tabs-menu {
+    display: inline-block;
+    background-color: #1179ac;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #53FF53;
+    padding: 5px 10px;
+    font-weight: bold;
+    text-decoration: none;
+    border: solid 2px #1179ac;
+    border-bottom: 0;
+    border-radius: 3px 3px 0 0;
+}
+
+a.tabs-menu.tabs-menu-active {
+    background-color: #fff;
+    border: solid 2px #1179ac;
+    color: #6b6b6b;
+    border-bottom: 0;
+}
+
+.tabs-content {
+    border: solid 2px #1179ac;
+    margin-top: -2px;
+    background-color: #000000;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.tabs-panel {
+    display: none;
+    min-height: 150px;
+    overflow: auto;
+    padding: 10px;
+    height: 200px;
+    font-size: 14px;
+}
+
+.animated-tabs {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes bounceIn {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(.3);
+    }
+    50% {
+        opacity: 1;
+        -webkit-transform: scale(1.05);
+    }
+    70% {
+        -webkit-transform: scale(.9);
+    }
+    100% {
+        -webkit-transform: scale(1);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.bounceIn {
+    -webkit-animation-name: bounceIn;
+    animation-name: bounceIn;
+} */

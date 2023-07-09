@@ -1,119 +1,147 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Simple Paint</title>
     <style>
-        body {
-            background-color: #000000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Crect fill='%23ffffff' width='8' height='8' /%3E%3Crect fill='%23ffffff' x='8' y='8' width='8' height='8' /%3E%3C/svg%3E") center center fixed;
-            margin: 0;
-            padding: 0;
-        }
+      body {
+        background-color: #000000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Crect fill='%23ffffff' width='8' height='8' /%3E%3Crect fill='%23ffffff' x='8' y='8' width='8' height='8' /%3E%3C/svg%3E")
+          center center fixed;
+        margin: 0;
+        padding: 0;
+      }
 
-        #controls {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-        }
+      #controls {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+      }
 
-        #canvas {
-            border: 1px solid black;
-        }
+      #canvas {
+        border: 1px solid black;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="controls">
-        <label for="color">Color:</label>
-        <input type="color" id="color" value="#000000">
-        <input type="color" id="red" value="#ff0000">
-        <input type="color" id="orange" value="#ffa500">
-        <input type="color" id="yellow" value="#ffff00">
-        <input type="color" id="green" value="#008000">
-        <input type="color" id="blue" value="#0000ff">
-        <input type="color" id="indigo" value="#4b0082">
-        <input type="color" id="violet" value="#ee82ee">
-        <label for="size">Size:</label>
-        <input type="range" id="size" min="1" max="50" value="1">
-        <button id="clear">Clear</button>
-        <button id="erase">Eraser</button>
+      <label for="color">Color:</label>
+      <input type="color" id="color" value="#000000" />
+      <input type="color" id="red" value="#ff0000" />
+      <input type="color" id="orange" value="#ffa500" />
+      <input type="color" id="yellow" value="#ffff00" />
+      <input type="color" id="green" value="#008000" />
+      <input type="color" id="blue" value="#0000ff" />
+      <input type="color" id="indigo" value="#4b0082" />
+      <input type="color" id="violet" value="#ee82ee" />
+      <label for="size">Size:</label>
+      <input type="range" id="size" min="1" max="50" value="1" />
+      <button id="clear">Clear</button>
+      <button id="erase">Eraser</button>
     </div>
     <canvas id="canvas"></canvas>
 
     <script>
-        window.onload = function() {
-            var canvas = document.getElementById('canvas');
-            var context = canvas.getContext('2d');
+      window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
 
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-            var painting = false;
-            var isErasing = false;
-            var currentColor = document.getElementById('color').value;
+        var painting = false;
+        var isErasing = false;
+        var currentColor = document.getElementById("color").value;
 
-            function startDraw(e) {
-                painting = true;
-                draw(e);
-            }
+        function startDraw(e) {
+          painting = true;
+          draw(e);
+        }
 
-            function endDraw() {
-                painting = false;
-                context.beginPath();
-            }
+        function endDraw() {
+          painting = false;
+          context.beginPath();
+        }
 
-            function draw(e) {
-                if (!painting) return;
-                context.lineWidth = document.getElementById('size').value;
-                context.lineCap = 'round';
-                if (isErasing) {
-                    context.strokeStyle = '#ffffff'; // White color for eraser
-                } else {
-                    context.strokeStyle = currentColor;
-                }
+        function draw(e) {
+          if (!painting) return;
+          context.lineWidth = document.getElementById("size").value;
+          context.lineCap = "round";
+          if (isErasing) {
+            context.strokeStyle = "#ffffff"; // White color for eraser
+          } else {
+            context.strokeStyle = currentColor;
+          }
 
-                context.lineTo(e.clientX, e.clientY);
-                context.stroke();
-                context.beginPath();
-                context.moveTo(e.clientX, e.clientY);
-            }
+          context.lineTo(e.clientX, e.clientY);
+          context.stroke();
+          context.beginPath();
+          context.moveTo(e.clientX, e.clientY);
+        }
 
-            function clearCanvas() {
-                context.clearRect(0, 0, canvas.width, canvas.height);
-            }
+        function clearCanvas() {
+          context.clearRect(0, 0, canvas.width, canvas.height);
+        }
 
-            function toggleEraser() {
-                isErasing = !isErasing;
-                if (isErasing) {
-                    document.getElementById('erase').classList.add('active');
-                } else {
-                    document.getElementById('erase').classList.remove('active');
-                }
-            }
+        function toggleEraser() {
+          isErasing = !isErasing;
+          if (isErasing) {
+            document.getElementById("erase").classList.add("active");
+          } else {
+            document.getElementById("erase").classList.remove("active");
+          }
+        }
 
-            function setColor(color) {
-                currentColor = color;
-                isErasing = false;
-                document.getElementById('erase').classList.remove('active');
-            }
+        function setColor(color) {
+          currentColor = color;
+          isErasing = false;
+          document.getElementById("erase").classList.remove("active");
+        }
 
-            document.getElementById('clear').addEventListener('click', clearCanvas);
-            document.getElementById('erase').addEventListener('click', toggleEraser);
-            document.getElementById('red').addEventListener('input', function() { setColor(document.getElementById('red').value); });
-            document.getElementById('orange').addEventListener('input', function() { setColor(document.getElementById('orange').value); });
-            document.getElementById('yellow').addEventListener('input', function() { setColor(document.getElementById('yellow').value); });
-            document.getElementById('green').addEventListener('input', function() { setColor(document.getElementById('green').value); });
-            document.getElementById('blue').addEventListener('input', function() { setColor(document.getElementById('blue').value); });
-            document.getElementById('indigo').addEventListener('input', function() { setColor(document.getElementById('indigo').value); });
-            document.getElementById('violet').addEventListener('input', function() { setColor(document.getElementById('violet').value); });
+        document.getElementById("clear").addEventListener("click", clearCanvas);
+        document
+          .getElementById("erase")
+          .addEventListener("click", toggleEraser);
+        document.getElementById("red").addEventListener("input", function () {
+          setColor(document.getElementById("red").value);
+        });
+        document
+          .getElementById("orange")
+          .addEventListener("input", function () {
+            setColor(document.getElementById("orange").value);
+          });
+        document
+          .getElementById("yellow")
+          .addEventListener("input", function () {
+            setColor(document.getElementById("yellow").value);
+          });
+        document.getElementById("green").addEventListener("input", function () {
+          setColor(document.getElementById("green").value);
+        });
+        document.getElementById("blue").addEventListener("input", function () {
+          setColor(document.getElementById("blue").value);
+        });
+        document
+          .getElementById("indigo")
+          .addEventListener("input", function () {
+            setColor(document.getElementById("indigo").value);
+          });
+        document
+          .getElementById("violet")
+          .addEventListener("input", function () {
+            setColor(document.getElementById("violet").value);
+          });
 
-            canvas.addEventListener('mousedown', startDraw);
-            canvas.addEventListener('mouseup', endDraw);
-            canvas.addEventListener('mousemove', draw);
-        };
+        canvas.addEventListener("mousedown", startDraw);
+        canvas.addEventListener("mouseup", endDraw);
+        canvas.addEventListener("mousemove", draw);
+      };
     </script>
-</body>
+    <div class="return-home">
+      <a href="index.html">Return Home</a>
+    </div>
+  </body>
 </html>
