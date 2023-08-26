@@ -20,6 +20,19 @@
       h1, h2, h3, h4, h5, h6 {
         font-family: 'Roboto', sans-serif;
       }
+      #portfolio {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        list-style: none;
+        padding: 0;
+      }
+      #portfolio img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        margin: 10px;
+      }
       .tabs-container {
         position: fixed;
         bottom: 20px;
@@ -93,6 +106,15 @@
         <li>Email: contact@example.com</li>
         <li>Phone: +1 123 456 7890</li>
         <li>Address: 123 Main Street, City, Country</li>
+      </ul>
+    </div>
+    <div id="portfolio">
+      <h2>My Portfolio</h2>
+      <ul>
+        <li><img src="https://example.com/photo1.jpg" alt="Photo 1"></li>
+        <li><img src="https://example.com/photo2.jpg" alt="Photo 2"></li>
+        <li><img src="https://example.com/photo3.jpg" alt="Photo 3"></li>
+        <!-- Add more photos as needed -->
       </ul>
     </div>
     <canvas id="matrixCanvas"></canvas>
