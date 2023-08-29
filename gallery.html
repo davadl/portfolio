@@ -86,16 +86,18 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <input type="password" id="passwordInput" class="form-control" placeholder="Password">
-          <div id="passwordError" class="text-danger" style="display: none;">Incorrect password</div>
-          <input type="file" id="fileInput" class="form-control" style="display: none;">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="passwordSubmit">Submit</button>
-          <button type="button" class="btn btn-primary" id="uploadButton" style="display: none;">Upload</button>
-        </div>
+        <form id="uploadForm" method="post" enctype="multipart/form-data">
+          <div class="modal-body">
+            <input type="password" id="passwordInput" class="form-control" placeholder="Password">
+            <div id="passwordError" class="text-danger" style="display: none;">Incorrect password</div>
+            <input type="file" id="fileInput" name="file" class="form-control" style="display: none;">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="passwordSubmit">Submit</button>
+            <button type="submit" class="btn btn-primary" id="uploadButton" style="display: none;">Upload</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -142,8 +144,24 @@
         }
       });
 
-      uploadButton.addEventListener('click', function() {
-        // TODO: Implement the upload functionality
+      document.querySelector('#uploadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        fetch('/upload', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+          if (data === 'File uploaded successfully') {
+            location.reload();
+          } else {
+            alert(data);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
       });
     });
   </script>
