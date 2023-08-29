@@ -89,10 +89,12 @@
         <div class="modal-body">
           <input type="password" id="passwordInput" class="form-control" placeholder="Password">
           <div id="passwordError" class="text-danger" style="display: none;">Incorrect password</div>
+          <input type="file" id="fileInput" class="form-control" style="display: none;">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" id="passwordSubmit">Submit</button>
+          <button type="button" class="btn btn-primary" id="uploadButton" style="display: none;">Upload</button>
         </div>
       </div>
     </div>
@@ -125,14 +127,23 @@
       attachEventListeners();
 
       const passwordSubmit = document.querySelector('#passwordSubmit');
+      const uploadButton = document.querySelector('#uploadButton');
+      const fileInput = document.querySelector('#fileInput');
       passwordSubmit.addEventListener('click', function() {
         const passwordInput = document.querySelector('#passwordInput');
         const passwordError = document.querySelector('#passwordError');
         if (passwordInput.value === '123') {
-          window.location.href = '/upload';
+          passwordSubmit.style.display = 'none';
+          passwordInput.style.display = 'none';
+          fileInput.style.display = 'block';
+          uploadButton.style.display = 'block';
         } else {
           passwordError.style.display = 'block';
         }
+      });
+
+      uploadButton.addEventListener('click', function() {
+        // TODO: Implement the upload functionality
       });
     });
   </script>
