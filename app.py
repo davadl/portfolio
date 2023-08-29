@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from flask import Flask, request, g
+from flask import Flask, request, g, render_template
 from werkzeug.utils import secure_filename
 
 DATABASE = '/mnt/files/data.db'
@@ -46,6 +46,10 @@ def upload_url():
 
     add_file_to_db('Uploaded image', url)
     return 'Image URL uploaded successfully', 200
+
+@app.route('/')
+def gallery():
+    return render_template('gallery.html')
 
 if __name__ == "__main__":
     with app.app_context():
