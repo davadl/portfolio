@@ -1,0 +1,104 @@
+<head>
+  <title>Image Gallery</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-gap: 10px;
+    }
+    .image-grid img {
+      width: 100%;
+      cursor: pointer;
+      object-fit: cover;
+      height: 25vw; /* Set a fixed height for the grid items */
+    }
+    .modal-content {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-body img {
+      max-width: 100%;
+      height: auto;
+    }
+    .upload-button {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      padding: 10px 20px;
+      background-color: #008CBA; /* Blue */
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .upload-button:hover {
+      background-color: #007B9A; /* Darker blue */
+    }
+    .gallery-header {
+      font-family: 'Fira Code', monospace;
+      font-style: italic;
+      font-size: 24px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="gallery-header">Gallery</h1>
+    <div class="image-grid">
+      <img src="https://www.thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg" alt="Image 1" data-toggle="modal" data-target="#imageModal" data-description="Description for Image 1">
+      <img src="https://allpicts.in/wp-content/uploads/2018/03/Natural-Images-HD-1080p-Download-with-Keyhole-Arch-at-Pfeiffer-Beach.jpg" alt="Image 2" data-toggle="modal" data-target="#imageModal" data-description="Description for Image 2">
+      <!-- Add more images here -->
+    <img src="" onclick="openPopup(this)" data-description="Image Description"><button class="remove-button" data-url="">x</button><img src="" onclick="openPopup(this)" data-description="Image Description"><button class="remove-button" data-url="">x</button><img src="https://pbs.twimg.com/media/F1Dr4CTXoAAP3AW?format=jpg&name=orig" onclick="openPopup(this)" data-description="Image Description"><button class="remove-button" data-url="https://pbs.twimg.com/media/F1Dr4CTXoAAP3AW?format=jpg&name=orig">x</button></div>
+  </div>
+
+  <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <img src="" alt="">
+          <p id="imageDescription"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="/upload" class="upload-button">Upload Image</a>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script>
+    function attachEventListeners() {
+      const images = document.querySelectorAll('.image-grid img');
+      images.forEach(img => {
+        img.addEventListener('click', function () {
+          const src = this.getAttribute('src');
+          const description = this.getAttribute('data-description');
+          const modalImg = document.querySelector('#imageModal .modal-body img');
+          modalImg.setAttribute('src', src);
+          const modalDescription = document.querySelector('#imageModal .modal-body #imageDescription');
+          if (description) {
+            modalDescription.textContent = description;
+          } else {
+            modalDescription.textContent = 'No description available';
+          }
+        });
+      });
+    }
+
+    // Attach event listeners after the page is loaded
+    document.addEventListener('DOMContentLoaded', attachEventListeners);
+  </script>
+</body>
+</html>
