@@ -144,6 +144,12 @@
           }
         });
       });
+
+      const uploadButton = document.querySelector('.upload-button');
+      uploadButton.addEventListener('click', function () {
+        const passwordModal = document.querySelector('#passwordModal');
+        passwordModal.style.display = 'block';
+      });
     }
 
     // Attach event listeners after the page is loaded
