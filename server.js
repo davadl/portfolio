@@ -10,6 +10,11 @@ app.get('/upload', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'upload.html'));
 });
 
+// Route handler for the /gallery route
+app.get('/gallery', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'gallery.html'));
+});
+
 // Start the server
 app.listen(8080, () => {
   console.log('Server is running on http://localhost:8080');
