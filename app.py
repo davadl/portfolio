@@ -28,29 +28,24 @@ def query_db(query, args=(), one=False):
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
-def add_file_to_db(filename, filepath):
+def add_file_to_db(filename, url):
     db = get_db()
     db.execute('INSERT INTO files (file_name, file_path) VALUES (?, ?)',
-                (filename, filepath))
+                (filename, url))
     db.commit()
 
 @app.route('/upload', methods=['POST'])
-def upload_file():
+def upload_url():
     password = request.form.get('password')
     if password != PASSWORD:
         return 'Unauthorized', 401
 
-    if 'file' not in request.files:
-        return 'No file part', 400
-    file = request.files['file']
-    if file.filename == '':
-        return 'No selected file', 400
-    if file:
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(filepath)
-        add_file_to_db(filename, filepath)
-        return 'File uploaded successfully', 200
+    url = request.form.get('url')
+    if not url:
+        return 'No URL provided', 400
+
+    add_file_to_db('Uploaded image', url)
+    return 'Image URL uploaded successfully', 200
 
 if __name__ == "__main__":
     with app.app_context():
