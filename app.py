@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 
 DATABASE = '/mnt/files/data.db'
 UPLOAD_FOLDER = '/mnt/files'
+PASSWORD = '123'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -35,6 +36,10 @@ def add_file_to_db(filename, filepath):
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    password = request.form.get('password')
+    if password != PASSWORD:
+        return 'Unauthorized', 401
+
     if 'file' not in request.files:
         return 'No file part', 400
     file = request.files['file']
