@@ -75,10 +75,27 @@
     </div>
   </div>
 
-  <form id="urlImageForm">
-    <input type="text" id="urlImageInput" placeholder="Enter image URL">
-    <button type="submit" class="upload-button">Upload Image from URL</button>
-  </form>
+  <div class="modal fade" id="urlModal" tabindex="-1" role="dialog" aria-labelledby="urlModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="urlModalLabel">Enter Image URL</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="urlImageForm">
+          <div class="modal-body">
+            <input type="text" id="urlImageInput" class="form-control" placeholder="Enter image URL">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -137,11 +154,11 @@
       passwordSubmit.addEventListener('click', function() {
         const passwordInput = document.querySelector('#passwordInput');
         const passwordError = document.querySelector('#passwordError');
+        const passwordModal = document.querySelector('#passwordModal');
+        const urlModal = document.querySelector('#urlModal');
         if (passwordInput.value === '123') {
-          passwordSubmit.style.display = 'none';
-          passwordInput.style.display = 'none';
-          fileInput.style.display = 'block';
-          uploadButton.style.display = 'block';
+          passwordModal.style.display = 'none';
+          urlModal.style.display = 'block';
         } else {
           passwordError.style.display = 'block';
         }
@@ -151,6 +168,7 @@
         e.preventDefault();
         const urlInput = document.querySelector('#urlImageInput');
         const url = urlInput.value;
+        const urlModal = document.querySelector('#urlModal');
         if (url) {
           const img = document.createElement('img');
           img.setAttribute('src', url);
@@ -161,6 +179,7 @@
           const imageGrid = document.querySelector('.image-grid');
           imageGrid.appendChild(img);
           urlInput.value = '';
+          urlModal.style.display = 'none';
         }
       });
     });
