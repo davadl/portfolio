@@ -101,16 +101,15 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="passwordModalLabel">Enter Password</h5>
+          <h5 class="modal-title" id="passwordModalLabel">Enter Image URL</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <form id="uploadForm" method="post" enctype="multipart/form-data">
           <div class="modal-body">
-            <input type="password" id="passwordInput" class="form-control" placeholder="Password">
+            <input type="text" id="passwordInput" class="form-control" placeholder="Enter image URL">
             <div id="passwordError" class="text-danger" style="display: none;">Incorrect password</div>
-            <input type="file" id="fileInput" name="file" class="form-control">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -164,9 +163,17 @@
         const passwordError = document.querySelector('#passwordError');
         const passwordModal = document.querySelector('#passwordModal');
         const urlModal = document.querySelector('#urlModal');
-        if (passwordInput.value === '123') {
+        if (passwordInput.value) {
           passwordModal.style.display = 'none';
-          fileInput.style.display = 'block';
+          const img = document.createElement('img');
+          img.setAttribute('src', passwordInput.value);
+          img.setAttribute('alt', 'Uploaded image');
+          img.setAttribute('data-toggle', 'modal');
+          img.setAttribute('data-target', '#imageModal');
+          img.setAttribute('data-description', 'Uploaded image from URL');
+          const imageGrid = document.querySelector('.image-grid');
+          imageGrid.appendChild(img);
+          passwordInput.value = '';
         } else {
           passwordError.style.display = 'block';
         }
