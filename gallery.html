@@ -165,15 +165,31 @@
         const urlModal = document.querySelector('#urlModal');
         if (passwordInput.value) {
           passwordModal.style.display = 'none';
-          const img = document.createElement('img');
-          img.setAttribute('src', passwordInput.value);
-          img.setAttribute('alt', 'Uploaded image');
-          img.setAttribute('data-toggle', 'modal');
-          img.setAttribute('data-target', '#imageModal');
-          img.setAttribute('data-description', 'Uploaded image from URL');
-          const imageGrid = document.querySelector('.image-grid');
-          imageGrid.appendChild(img);
-          passwordInput.value = '';
+          fetch('/upload', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              password: '123',
+              url: passwordInput.value,
+            }),
+          })
+          .then(response => response.text())
+          .then(url => {
+            const img = document.createElement('img');
+            img.setAttribute('src', url);
+            img.setAttribute('alt', 'Uploaded image');
+            img.setAttribute('data-toggle', 'modal');
+            img.setAttribute('data-target', '#imageModal');
+            img.setAttribute('data-description', 'Uploaded image from URL');
+            const imageGrid = document.querySelector('.image-grid');
+            imageGrid.appendChild(img);
+            passwordInput.value = '';
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
         } else {
           passwordError.style.display = 'block';
         }

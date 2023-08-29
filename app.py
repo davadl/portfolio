@@ -45,7 +45,7 @@ def upload_url():
         return 'No URL provided', 400
 
     add_file_to_db('Uploaded image', url)
-    return 'Image URL uploaded successfully', 200
+    return url, 200
 
 @app.route('/')
 def gallery():
