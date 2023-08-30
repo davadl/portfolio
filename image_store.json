@@ -1,9 +1,11 @@
 {
   "images": [
-    {"src": "./imgs/image1.jpg", "alt": "Image 1", "description": "Description for Image 1"},
-    {"src": "./imgs/image2.jpg", "alt": "Image 2", "description": "Description for Image 2"},
-    {"src": "./imgs/image3.jpg", "alt": "Image 3", "description": "Description for Image 3"},
-    {"src": "./imgs/image4.jpg", "alt": "Image 4", "description": "Description for Image 4"},
-    {"src": "./imgs/image5.jpg", "alt": "Image 5", "description": "Description for Image 5"}
+    {"src": "./imgs/output_1_1.png", "alt": "Output 1", "description": "Description for Output 1"},
+    {"src": "./imgs/output_2_1.png", "alt": "Output 2", "description": "Description for Output 2"},
+    {"src": "./imgs/output_3_1.png", "alt": "Output 3", "description": "Description for Output 3"},
+    {"src": "./imgs/output_4_1.png", "alt": "Output 4", "description": "Description for Output 4"},
+    {"src": "./imgs/output_5_1.png", "alt": "Output 5", "description": "Description for Output 5"},
+    ...
+    {"src": "./imgs/output_40_1.png", "alt": "Output 40", "description": "Description for Output 40"}
   ]
 }
