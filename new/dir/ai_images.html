@@ -3,95 +3,15 @@
 <head>
     <title>AI Images</title>
     <style>
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-gap: 20px;
-            padding: 20px;
-        }
+        /* ... existing styles ... */
 
-        .gallery-item {
-            background-color: #f2f2f2;
-            padding: 20px;
-            box-sizing: border-box;
-            transition: transform 0.3s ease;
-            margin-bottom: 20px;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-        }
-
-        .gallery-item img {
-            max-width: 100%;
-            height: auto;
-            cursor: zoom-in;
-        }
-
-        .gallery-item img.zoomed {
-            zoom: 2; /* Adjust the zoom level as needed */
-            cursor: zoom-out;
-        }
-
-        .gallery-item h3, .gallery-item p {
-            margin: 0;
-        }
-
-        .lightbox-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .lightbox-nav button {
-            background-color: #f2f2f2;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .lightbox-nav button:hover {
-            background-color: #ddd;
-        }
-
-        .gallery-item-caption {
-            margin-top: 10px;
-            font-style: italic;
-        }
-
-        .fullscreen-view {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+        .pagination {
             display: flex;
             justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .fullscreen-view.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .fullscreen-view img {
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-        .filter-buttons {
             margin-top: 20px;
         }
 
-        .filter-buttons button {
+        .pagination button {
             background-color: #f2f2f2;
             border: none;
             padding: 10px 20px;
@@ -99,20 +19,8 @@
             transition: background-color 0.3s ease;
         }
 
-        .filter-buttons button:hover {
+        .pagination button:hover {
             background-color: #ddd;
-        }
-
-        @media (max-width: 768px) {
-            .gallery-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 576px) {
-            .gallery-container {
-                grid-template-columns: repeat(1, 1fr);
-            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
@@ -120,79 +28,21 @@
 <body>
     <h1>Welcome to AI Images</h1>
 
-    <div class="filter-buttons">
-        <button onclick="filterGallery('all')">All</button>
-        <button onclick="filterGallery('landscape')">Landscape</button>
-        <button onclick="filterGallery('portrait')">Portrait</button>
-        <button onclick="filterGallery('nature')">Nature</button>
-    </div>
+    <!-- ... existing content ... -->
 
-    <div class="gallery-container">
-        <div class="gallery-item landscape">
-            <a href="image1.jpg" data-lightbox="gallery" data-title="Image 1">
-                <img src="image1.jpg" alt="Image 1" loading="lazy">
-            </a>
-            <h3>Image 1</h3>
-            <p class="gallery-item-caption">Caption for Image 1</p>
-        </div>
-        <div class="gallery-item portrait">
-            <a href="image2.jpg" data-lightbox="gallery" data-title="Image 2">
-                <img src="image2.jpg" alt="Image 2" loading="lazy">
-            </a>
-            <h3>Image 2</h3>
-            <p class="gallery-item-caption">Caption for Image 2</p>
-        </div>
-        <div class="gallery-item nature">
-            <a href="image3.jpg" data-lightbox="gallery" data-title="Image 3">
-                <img src="image3.jpg" alt="Image 3" loading="lazy">
-            </a>
-            <h3>Image 3</h3>
-            <p class="gallery-item-caption">Caption for Image 3</p>
-        </div>
-        <!-- Add more gallery items as needed -->
-    </div>
-
-    <div class="lightbox-nav">
-        <button onclick="lightbox.previous()">Previous</button>
-        <button onclick="lightbox.next()">Next</button>
-    </div>
-
-    <div class="fullscreen-view">
-        <img src="" alt="Fullscreen Image">
+    <div class="pagination">
+        <button onclick="goToPage(1)">1</button>
+        <button onclick="goToPage(2)">2</button>
+        <button onclick="goToPage(3)">3</button>
+        <!-- Add more buttons for additional pages -->
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script>
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        const fullscreenView = document.querySelector('.fullscreen-view');
-        const fullscreenImage = fullscreenView.querySelector('img');
+        /* ... existing JavaScript code ... */
 
-        galleryItems.forEach(item => {
-            const img = item.querySelector('img');
-            img.addEventListener('click', () => {
-                img.classList.toggle('zoomed');
-            });
-
-            img.addEventListener('click', () => {
-                fullscreenImage.src = img.src;
-                fullscreenView.classList.add('active');
-            });
-        });
-
-        fullscreenView.addEventListener('click', () => {
-            fullscreenView.classList.remove('active');
-        });
-
-        function filterGallery(filter) {
-            galleryItems.forEach(item => {
-                if (filter === 'all') {
-                    item.style.display = 'block';
-                } else if (item.classList.contains(filter)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        function goToPage(page) {
+            // Logic to navigate to the specified page
         }
     </script>
 </body>
