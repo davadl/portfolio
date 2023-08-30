@@ -97,31 +97,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="passwordModalLabel">Enter Image URL</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form id="uploadForm" method="post" enctype="multipart/form-data">
-          <div class="modal-body">
-            <input type="text" id="passwordInput" class="form-control" placeholder="Enter image URL">
-            <div id="passwordError" class="text-danger" style="display: none;">Incorrect password</div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="passwordSubmit">Submit</button>
-            <button type="submit" class="btn btn-primary" id="uploadButton" style="display: none;">Upload</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 
-  <a href="#" class="upload-button" data-toggle="modal" data-target="#passwordModal">Upload Image</a>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -144,56 +120,9 @@
         });
       });
 
-      const uploadButton = document.querySelector('.upload-button');
-      uploadButton.addEventListener('click', function () {
-        const passwordModal = document.querySelector('#passwordModal');
-        passwordModal.style.display = 'block';
-      });
-    }
-
-    // Attach event listeners after the page is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-      attachEventListeners();
-
-      const passwordSubmit = document.querySelector('#passwordSubmit');
-      const uploadButton = document.querySelector('#uploadButton');
-      const fileInput = document.querySelector('#fileInput');
-      passwordSubmit.addEventListener('click', function() {
-        const passwordInput = document.querySelector('#passwordInput');
-        const passwordError = document.querySelector('#passwordError');
-        const passwordModal = document.querySelector('#passwordModal');
-        const urlModal = document.querySelector('#urlModal');
-        if (passwordInput.value) {
-          passwordModal.style.display = 'none';
-          fetch('/upload', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              password: '123',
-              url: passwordInput.value,
-            }),
-          })
-          .then(response => response.text())
-          .then(url => {
-            const img = document.createElement('img');
-            img.setAttribute('src', url);
-            img.setAttribute('alt', 'Uploaded image');
-            img.setAttribute('data-toggle', 'modal');
-            img.setAttribute('data-target', '#imageModal');
-            img.setAttribute('data-description', 'Uploaded image from URL');
-            const imageGrid = document.querySelector('.image-grid');
-            imageGrid.appendChild(img);
-            passwordInput.value = '';
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-        } else {
-          passwordError.style.display = 'block';
-        }
-      });
+      // Attach event listeners after the page is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        attachEventListeners();
 
       document.querySelector('#urlImageForm').addEventListener('submit', function(e) {
         e.preventDefault();
