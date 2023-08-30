@@ -132,20 +132,21 @@
             <p class="gallery-item-caption">Caption for Image 3</p>
         </div>
         <!-- Add more gallery items as needed -->
-        <!—- Add images from the gallery from ./image_store.json and load them into the gallery-->
+        <!—- Add images from the gallery from ../image_store.json and load them into the gallery-->
+
         <?php
-            $json = file_get_contents('./image_store.json');
+            $json = file_get_contents('../image_store.json');
             $json_data = json_decode($json, true);
-            foreach ($json_data['images'] as $image) {
+
+            foreach ($json_data as $key => $value) {
                 echo '<div class="gallery-item">';
-                echo '<a href="'.$image['src'].'" data-lightbox="gallery" data-title="'.$image['alt'].'">';
-                echo '<img src="'.$image['src'].'" alt="'.$image['alt'].'" loading="lazy">';
+                echo '<a href="' . $value['url'] . '" data-lightbox="gallery" data-title="' . $value['title'] . '">';
+                echo '<img src="' . $value['url'] . '" alt="' . $value['title'] . '" loading="lazy">';
                 echo '</a>';
-                echo '<h3>'.$image['alt'].'</h3>';
-                echo '<p class="gallery-item-caption">'.$image['description'].'</p>';
+                echo '<h3>' . $value['title'] . '</h3>';
+                echo '<p class="gallery-item-caption">' . $value['caption'] . '</p>';
                 echo '</div>';
             }
-        ?>
     </div>
 
     <div class="lightbox-nav">
