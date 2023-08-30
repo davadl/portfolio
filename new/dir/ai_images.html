@@ -3,6 +3,7 @@
 <head>
     <title>AI Images</title>
     <style>
+        /* Default theme styles */
         .gallery-container {
             display: grid;
             grid-gap: 20px;
@@ -103,6 +104,37 @@
                 grid-template-columns: repeat(4, 1fr);
             }
         }
+
+        /* Dark theme styles */
+        .dark-theme .gallery-item {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .dark-theme .gallery-item:hover {
+            transform: scale(1.1);
+        }
+
+        .dark-theme .gallery-item img {
+            cursor: zoom-out;
+        }
+
+        .dark-theme .gallery-item-caption {
+            color: #ccc;
+        }
+
+        .dark-theme .lightbox-nav button {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .dark-theme .fullscreen-view {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .dark-theme .fullscreen-view img {
+            border: 2px solid #fff;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 </head>
@@ -143,6 +175,8 @@
         <img src="" alt="Fullscreen Image">
     </div>
 
+    <button onclick="toggleTheme()">Toggle Theme</button>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script>
         const galleryItems = document.querySelectorAll('.gallery-item');
@@ -164,6 +198,11 @@
         fullscreenView.addEventListener('click', () => {
             fullscreenView.classList.remove('active');
         });
+
+        function toggleTheme() {
+            const body = document.querySelector('body');
+            body.classList.toggle('dark-theme');
+        }
     </script>
 </body>
 </html>
