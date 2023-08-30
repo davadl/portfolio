@@ -15,6 +15,7 @@
             box-sizing: border-box;
             transition: transform 0.3s ease;
             margin-bottom: 20px;
+            position: relative;
         }
 
         .gallery-item:hover {
@@ -25,6 +26,8 @@
             max-width: 100%;
             height: auto;
             cursor: zoom-in;
+            opacity: 0;
+            animation: fade-in 0.5s ease forwards;
         }
 
         .gallery-item img.zoomed {
@@ -103,6 +106,32 @@
                 grid-template-columns: repeat(4, 1fr);
             }
         }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .loading-animation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 </head>
@@ -111,6 +140,7 @@
 
     <div class="gallery-container">
         <div class="gallery-item">
+            <div class="loading-animation"></div>
             <a href="image1.jpg" data-lightbox="gallery" data-title="Image 1">
                 <img src="image1.jpg" alt="Image 1" loading="lazy">
             </a>
@@ -118,6 +148,7 @@
             <p class="gallery-item-caption">Caption for Image 1</p>
         </div>
         <div class="gallery-item">
+            <div class="loading-animation"></div>
             <a href="image2.jpg" data-lightbox="gallery" data-title="Image 2">
                 <img src="image2.jpg" alt="Image 2" loading="lazy">
             </a>
@@ -125,6 +156,7 @@
             <p class="gallery-item-caption">Caption for Image 2</p>
         </div>
         <div class="gallery-item">
+            <div class="loading-animation"></div>
             <a href="image3.jpg" data-lightbox="gallery" data-title="Image 3">
                 <img src="image3.jpg" alt="Image 3" loading="lazy">
             </a>
@@ -151,6 +183,13 @@
 
         galleryItems.forEach(item => {
             const img = item.querySelector('img');
+            const loadingAnimation = item.querySelector('.loading-animation');
+
+            img.addEventListener('load', () => {
+                loadingAnimation.style.display = 'none';
+                img.style.opacity = 1;
+            });
+
             img.addEventListener('click', () => {
                 img.classList.toggle('zoomed');
             });
