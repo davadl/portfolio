@@ -29,6 +29,25 @@
             margin: 0;
         }
 
+        .lightbox-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .lightbox-nav button {
+            background-color: #f2f2f2;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .lightbox-nav button:hover {
+            background-color: #ddd;
+        }
+
         @media (max-width: 768px) {
             .gallery-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -69,6 +88,11 @@
             <p>Description of Image 3</p>
         </div>
         <!-- Add more gallery items as needed -->
+    </div>
+
+    <div class="lightbox-nav">
+        <button onclick="lightbox.previous()">Previous</button>
+        <button onclick="lightbox.next()">Next</button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
