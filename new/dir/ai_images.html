@@ -110,28 +110,42 @@
     <h1>Welcome to AI Images</h1>
 
     <div class="gallery-container">
-        <div class="gallery-item">
-            <a href="image1.jpg" data-lightbox="gallery" data-title="Image 1">
-                <img src="image1.jpg" alt="Image 1" loading="lazy">
-            </a>
-            <h3>Image 1</h3>
-            <p class="gallery-item-caption">Caption for Image 1</p>
-        </div>
-        <div class="gallery-item">
-            <a href="image2.jpg" data-lightbox="gallery" data-title="Image 2">
-                <img src="image2.jpg" alt="Image 2" loading="lazy">
-            </a>
-            <h3>Image 2</h3>
-            <p class="gallery-item-caption">Caption for Image 2</p>
-        </div>
-        <div class="gallery-item">
-            <a href="image3.jpg" data-lightbox="gallery" data-title="Image 3">
-                <img src="image3.jpg" alt="Image 3" loading="lazy">
-            </a>
-            <h3>Image 3</h3>
-            <p class="gallery-item-caption">Caption for Image 3</p>
-        </div>
-        <!-- Add more gallery items as needed -->
+        <!-- Load images from image_store.json -->
+        <script>
+            fetch('image_store.json')
+                .then(response => response.json())
+                .then(data => {
+                    const galleryContainer = document.querySelector('.gallery-container');
+                    data.images.forEach(image => {
+                        const galleryItem = document.createElement('div');
+                        galleryItem.classList.add('gallery-item');
+
+                        const anchor = document.createElement('a');
+                        anchor.href = image.src;
+                        anchor.setAttribute('data-lightbox', 'gallery');
+                        anchor.setAttribute('data-title', image.alt);
+
+                        const img = document.createElement('img');
+                        img.src = image.src;
+                        img.alt = image.alt;
+                        img.loading = 'lazy';
+
+                        anchor.appendChild(img);
+                        galleryItem.appendChild(anchor);
+
+                        const heading = document.createElement('h3');
+                        heading.textContent = image.alt;
+                        galleryItem.appendChild(heading);
+
+                        const caption = document.createElement('p');
+                        caption.classList.add('gallery-item-caption');
+                        caption.textContent = image.description;
+                        galleryItem.appendChild(caption);
+
+                        galleryContainer.appendChild(galleryItem);
+                    });
+                });
+        </script>
     </div>
 
     <div class="lightbox-nav">
