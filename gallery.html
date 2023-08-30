@@ -116,27 +116,24 @@
           }
         });
       });
+    }
 
-      // Attach event listeners after the page is loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        attachEventListeners();
-
-      fetch('image_store.json')
-        .then(response => response.json())
-        .then(data => {
-          const imageGrid = document.querySelector('#imageGrid');
-          data.images.forEach(image => {
-            const img = document.createElement('img');
-            img.setAttribute('src', image.src);
-            img.setAttribute('alt', image.alt);
-            img.setAttribute('data-toggle', 'modal');
-            img.setAttribute('data-target', '#imageModal');
-            img.setAttribute('data-description', image.description);
-            imageGrid.appendChild(img);
-          });
-          attachEventListeners();
+    // Fetch images from the JSON store and add them to the gallery
+    fetch('image_store.json')
+      .then(response => response.json())
+      .then(data => {
+        const imageGrid = document.querySelector('#imageGrid');
+        data.images.forEach(image => {
+          const img = document.createElement('img');
+          img.setAttribute('src', image.src);
+          img.setAttribute('alt', image.alt);
+          img.setAttribute('data-toggle', 'modal');
+          img.setAttribute('data-target', '#imageModal');
+          img.setAttribute('data-description', image.description);
+          imageGrid.appendChild(img);
         });
-    });
+        attachEventListeners();
+      });
   </script>
 </body>
 </html>
