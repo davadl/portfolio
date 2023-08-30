@@ -7,7 +7,6 @@
             display: grid;
             grid-gap: 20px;
             padding: 20px;
-            grid-auto-rows: minmax(200px, auto); /* Set the minimum and maximum height for each row */
         }
 
         .gallery-item {
@@ -16,7 +15,6 @@
             box-sizing: border-box;
             transition: transform 0.3s ease;
             margin-bottom: 20px;
-            position: relative;
         }
 
         .gallery-item:hover {
@@ -27,8 +25,6 @@
             max-width: 100%;
             height: auto;
             cursor: zoom-in;
-            opacity: 0;
-            animation: fade-in 0.5s ease forwards;
         }
 
         .gallery-item img.zoomed {
@@ -107,32 +103,6 @@
                 grid-template-columns: repeat(4, 1fr);
             }
         }
-
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .loading-animation {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            100% {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
-        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 </head>
@@ -140,7 +110,28 @@
     <h1>Welcome to AI Images</h1>
 
     <div class="gallery-container">
-        <!-- Add gallery items dynamically -->
+        <div class="gallery-item">
+            <a href="image1.jpg" data-lightbox="gallery" data-title="Image 1">
+                <img src="image1.jpg" alt="Image 1" loading="lazy">
+            </a>
+            <h3>Image 1</h3>
+            <p class="gallery-item-caption">Caption for Image 1</p>
+        </div>
+        <div class="gallery-item">
+            <a href="image2.jpg" data-lightbox="gallery" data-title="Image 2">
+                <img src="image2.jpg" alt="Image 2" loading="lazy">
+            </a>
+            <h3>Image 2</h3>
+            <p class="gallery-item-caption">Caption for Image 2</p>
+        </div>
+        <div class="gallery-item">
+            <a href="image3.jpg" data-lightbox="gallery" data-title="Image 3">
+                <img src="image3.jpg" alt="Image 3" loading="lazy">
+            </a>
+            <h3>Image 3</h3>
+            <p class="gallery-item-caption">Caption for Image 3</p>
+        </div>
+        <!-- Add more gallery items as needed -->
     </div>
 
     <div class="lightbox-nav">
@@ -154,58 +145,20 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script>
-        const galleryContainer = document.querySelector('.gallery-container');
+        const galleryItems = document.querySelectorAll('.gallery-item');
         const fullscreenView = document.querySelector('.fullscreen-view');
         const fullscreenImage = fullscreenView.querySelector('img');
 
-        // Fetch the image data from image_store.json
-        fetch('image_store.json')
-            .then(response => response.json())
-            .then(data => {
-                // Loop through the images and create gallery items
-                data.images.forEach(image => {
-                    const galleryItem = document.createElement('div');
-                    galleryItem.classList.add('gallery-item');
-
-                    const loadingAnimation = document.createElement('div');
-                    loadingAnimation.classList.add('loading-animation');
-                    galleryItem.appendChild(loadingAnimation);
-
-                    const link = document.createElement('a');
-                    link.href = image.src;
-                    link.setAttribute('data-lightbox', 'gallery');
-                    link.setAttribute('data-title', image.alt);
-                    galleryItem.appendChild(link);
-
-                    const img = document.createElement('img');
-                    img.src = image.src;
-                    img.alt = image.alt;
-                    img.loading = 'lazy';
-                    link.appendChild(img);
-
-                    const heading = document.createElement('h3');
-                    heading.textContent = image.alt;
-                    galleryItem.appendChild(heading);
-
-                    const caption = document.createElement('p');
-                    caption.classList.add('gallery-item-caption');
-                    caption.textContent = image.description;
-                    galleryItem.appendChild(caption);
-
-                    galleryContainer.appendChild(galleryItem);
-                });
-            })
-            .catch(error => {
-                console.error('Error:', error);
+        galleryItems.forEach(item => {
+            const img = item.querySelector('img');
+            img.addEventListener('click', () => {
+                img.classList.toggle('zoomed');
             });
 
-        galleryContainer.addEventListener('click', event => {
-            const img = event.target;
-            if (img.tagName === 'IMG') {
-                img.classList.toggle('zoomed');
+            img.addEventListener('click', () => {
                 fullscreenImage.src = img.src;
                 fullscreenView.classList.add('active');
-            }
+            });
         });
 
         fullscreenView.addEventListener('click', () => {
