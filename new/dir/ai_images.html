@@ -56,6 +56,11 @@
             background-color: #ddd;
         }
 
+        .gallery-item-caption {
+            margin-top: 10px;
+            font-style: italic;
+        }
+
         @media (max-width: 768px) {
             .gallery-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -79,21 +84,21 @@
                 <img src="image1.jpg" alt="Image 1" loading="lazy">
             </a>
             <h3>Image 1</h3>
-            <p>Description of Image 1</p>
+            <p class="gallery-item-caption">Caption for Image 1</p>
         </div>
         <div class="gallery-item">
             <a href="image2.jpg" data-lightbox="gallery" data-title="Image 2">
                 <img src="image2.jpg" alt="Image 2" loading="lazy">
             </a>
             <h3>Image 2</h3>
-            <p>Description of Image 2</p>
+            <p class="gallery-item-caption">Caption for Image 2</p>
         </div>
         <div class="gallery-item">
             <a href="image3.jpg" data-lightbox="gallery" data-title="Image 3">
                 <img src="image3.jpg" alt="Image 3" loading="lazy">
             </a>
             <h3>Image 3</h3>
-            <p>Description of Image 3</p>
+            <p class="gallery-item-caption">Caption for Image 3</p>
         </div>
         <!-- Add more gallery items as needed -->
     </div>
