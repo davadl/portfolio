@@ -140,31 +140,7 @@
     <h1>Welcome to AI Images</h1>
 
     <div class="gallery-container">
-        <div class="gallery-item">
-            <div class="loading-animation"></div>
-            <a href="image1.jpg" data-lightbox="gallery" data-title="Image 1">
-                <img src="image1.jpg" alt="Image 1" loading="lazy">
-            </a>
-            <h3>Image 1</h3>
-            <p class="gallery-item-caption">Caption for Image 1</p>
-        </div>
-        <div class="gallery-item">
-            <div class="loading-animation"></div>
-            <a href="image2.jpg" data-lightbox="gallery" data-title="Image 2">
-                <img src="image2.jpg" alt="Image 2" loading="lazy">
-            </a>
-            <h3>Image 2</h3>
-            <p class="gallery-item-caption">Caption for Image 2</p>
-        </div>
-        <div class="gallery-item">
-            <div class="loading-animation"></div>
-            <a href="image3.jpg" data-lightbox="gallery" data-title="Image 3">
-                <img src="image3.jpg" alt="Image 3" loading="lazy">
-            </a>
-            <h3>Image 3</h3>
-            <p class="gallery-item-caption">Caption for Image 3</p>
-        </div>
-        <!-- Add more gallery items as needed -->
+        <!-- Add gallery items dynamically -->
     </div>
 
     <div class="lightbox-nav">
@@ -178,27 +154,58 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <script>
-        const galleryItems = document.querySelectorAll('.gallery-item');
+        const galleryContainer = document.querySelector('.gallery-container');
         const fullscreenView = document.querySelector('.fullscreen-view');
         const fullscreenImage = fullscreenView.querySelector('img');
 
-        galleryItems.forEach(item => {
-            const img = item.querySelector('img');
-            const loadingAnimation = item.querySelector('.loading-animation');
+        // Fetch the image data from image_store.json
+        fetch('image_store.json')
+            .then(response => response.json())
+            .then(data => {
+                // Loop through the images and create gallery items
+                data.images.forEach(image => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.classList.add('gallery-item');
 
-            img.addEventListener('load', () => {
-                loadingAnimation.style.display = 'none';
-                img.style.opacity = 1;
+                    const loadingAnimation = document.createElement('div');
+                    loadingAnimation.classList.add('loading-animation');
+                    galleryItem.appendChild(loadingAnimation);
+
+                    const link = document.createElement('a');
+                    link.href = image.src;
+                    link.setAttribute('data-lightbox', 'gallery');
+                    link.setAttribute('data-title', image.alt);
+                    galleryItem.appendChild(link);
+
+                    const img = document.createElement('img');
+                    img.src = image.src;
+                    img.alt = image.alt;
+                    img.loading = 'lazy';
+                    link.appendChild(img);
+
+                    const heading = document.createElement('h3');
+                    heading.textContent = image.alt;
+                    galleryItem.appendChild(heading);
+
+                    const caption = document.createElement('p');
+                    caption.classList.add('gallery-item-caption');
+                    caption.textContent = image.description;
+                    galleryItem.appendChild(caption);
+
+                    galleryContainer.appendChild(galleryItem);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
 
-            img.addEventListener('click', () => {
+        galleryContainer.addEventListener('click', event => {
+            const img = event.target;
+            if (img.tagName === 'IMG') {
                 img.classList.toggle('zoomed');
-            });
-
-            img.addEventListener('click', () => {
                 fullscreenImage.src = img.src;
                 fullscreenView.classList.add('active');
-            });
+            }
         });
 
         fullscreenView.addEventListener('click', () => {
