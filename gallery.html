@@ -57,10 +57,7 @@
 <body>
   <div class="container">
     <h1 class="gallery-header">Gallery</h1>
-    <div class="image-grid">
-      <img src="https://www.thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg" alt="Image 1" data-toggle="modal" data-target="#imageModal" data-description="Description for Image 1">
-      <img src="https://allpicts.in/wp-content/uploads/2018/03/Natural-Images-HD-1080p-Download-with-Keyhole-Arch-at-Pfeiffer-Beach.jpg" alt="Image 2" data-toggle="modal" data-target="#imageModal" data-description="Description for Image 2">
-      <img src="https://pbs.twimg.com/media/F4orWHWWkAINOJ1?format=jpg&name=orig" alt="Image 3" data-toggle="modal" data-target="#imageModal" data-description="Description for Image 3">
+    <div class="image-grid" id="imageGrid">
     </div>
   </div>
 
@@ -124,24 +121,21 @@
       document.addEventListener('DOMContentLoaded', function() {
         attachEventListeners();
 
-      document.querySelector('#urlImageForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const urlInput = document.querySelector('#urlImageInput');
-        const url = urlInput.value;
-        const urlModal = document.querySelector('#urlModal');
-        if (url) {
-          const img = document.createElement('img');
-          img.setAttribute('src', url);
-          img.setAttribute('alt', 'Uploaded image');
-          img.setAttribute('data-toggle', 'modal');
-          img.setAttribute('data-target', '#imageModal');
-          img.setAttribute('data-description', 'Uploaded image from URL');
-          const imageGrid = document.querySelector('.image-grid');
-          imageGrid.appendChild(img);
-          urlInput.value = '';
-          urlModal.style.display = 'none';
-        }
-      });
+      fetch('image_store.json')
+        .then(response => response.json())
+        .then(data => {
+          const imageGrid = document.querySelector('#imageGrid');
+          data.images.forEach(image => {
+            const img = document.createElement('img');
+            img.setAttribute('src', image.src);
+            img.setAttribute('alt', image.alt);
+            img.setAttribute('data-toggle', 'modal');
+            img.setAttribute('data-target', '#imageModal');
+            img.setAttribute('data-description', image.description);
+            imageGrid.appendChild(img);
+          });
+          attachEventListeners();
+        });
     });
   </script>
 </body>

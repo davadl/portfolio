@@ -1,0 +1,8 @@
+{
+  "images": [
+    {"src": "./imgs/output_1_1.png", "alt": "Image 1", "description": "Description for Image 1"},
+    {"src": "./imgs/output_2_1.png", "alt": "Image 2", "description": "Description for Image 2"},
+    ...
+    {"src": "./imgs/output_40_1.png", "alt": "Image 40", "description": "Description for Image 40"}
+  ]
+}
