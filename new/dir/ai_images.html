@@ -23,6 +23,12 @@
         .gallery-item img {
             max-width: 100%;
             height: auto;
+            cursor: zoom-in;
+        }
+
+        .gallery-item img.zoomed {
+            zoom: 2; /* Adjust the zoom level as needed */
+            cursor: zoom-out;
         }
 
         .gallery-item h3, .gallery-item p {
@@ -96,5 +102,15 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script>
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        galleryItems.forEach(item => {
+            const img = item.querySelector('img');
+            img.addEventListener('click', () => {
+                img.classList.toggle('zoomed');
+            });
+        });
+    </script>
 </body>
 </html>
