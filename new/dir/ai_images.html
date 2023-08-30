@@ -87,6 +87,22 @@
             max-height: 90%;
         }
 
+        .filter-buttons {
+            margin-top: 20px;
+        }
+
+        .filter-buttons button {
+            background-color: #f2f2f2;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-buttons button:hover {
+            background-color: #ddd;
+        }
+
         @media (max-width: 768px) {
             .gallery-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -104,22 +120,29 @@
 <body>
     <h1>Welcome to AI Images</h1>
 
+    <div class="filter-buttons">
+        <button onclick="filterGallery('all')">All</button>
+        <button onclick="filterGallery('landscape')">Landscape</button>
+        <button onclick="filterGallery('portrait')">Portrait</button>
+        <button onclick="filterGallery('nature')">Nature</button>
+    </div>
+
     <div class="gallery-container">
-        <div class="gallery-item">
+        <div class="gallery-item landscape">
             <a href="image1.jpg" data-lightbox="gallery" data-title="Image 1">
                 <img src="image1.jpg" alt="Image 1" loading="lazy">
             </a>
             <h3>Image 1</h3>
             <p class="gallery-item-caption">Caption for Image 1</p>
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item portrait">
             <a href="image2.jpg" data-lightbox="gallery" data-title="Image 2">
                 <img src="image2.jpg" alt="Image 2" loading="lazy">
             </a>
             <h3>Image 2</h3>
             <p class="gallery-item-caption">Caption for Image 2</p>
         </div>
-        <div class="gallery-item">
+        <div class="gallery-item nature">
             <a href="image3.jpg" data-lightbox="gallery" data-title="Image 3">
                 <img src="image3.jpg" alt="Image 3" loading="lazy">
             </a>
@@ -159,6 +182,18 @@
         fullscreenView.addEventListener('click', () => {
             fullscreenView.classList.remove('active');
         });
+
+        function filterGallery(filter) {
+            galleryItems.forEach(item => {
+                if (filter === 'all') {
+                    item.style.display = 'block';
+                } else if (item.classList.contains(filter)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>
