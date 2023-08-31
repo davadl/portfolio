@@ -14,17 +14,19 @@
             width: 100%;
             max-width: 200px;
             margin: 10px; /* Added margin */
+            border: 1px solid #ddd; /* Added border */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added box shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .image-tile:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         .image-tile img, .image-tile video {
             width: 100%;
             height: auto;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .image-tile img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
         @media (max-width: 600px) {
             .image-container {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
