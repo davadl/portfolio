@@ -46,6 +46,26 @@
             max-width: 90%;
             max-height: 90%;
         }
+        .prev-arrow, .next-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .prev-arrow {
+            left: 10px;
+        }
+        .next-arrow {
+            right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -53,6 +73,8 @@
     <div id="lightbox" style="display: none;">
         <img id="lightboxImage">
     </div>
+    <div class="prev-arrow" id="prevArrow">&#8249;</div>
+    <div class="next-arrow" id="nextArrow">&#8250;</div>
 
     <script>
         fetch('image_store.json')
@@ -65,7 +87,7 @@
                 lightboxVideo.style.display = 'none';
                 lightboxVideo.controls = true;
                 lightbox.appendChild(lightboxVideo);
-                data.images.forEach(image => {
+                data.images.forEach((image, index) => {
                     const imageTile = document.createElement('div');
                     imageTile.className = 'image-tile';
                     let media;
@@ -101,6 +123,28 @@
                 });
                 lightbox.addEventListener('click', () => {
                     lightbox.style.display = 'none';
+                });
+
+                const prevArrow = document.getElementById('prevArrow');
+                const nextArrow = document.getElementById('nextArrow');
+                let currentIndex = 0;
+
+                prevArrow.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                    } else {
+                        currentIndex = data.images.length - 1;
+                    }
+                    lightboxImage.src = data.images[currentIndex].src;
+                });
+
+                nextArrow.addEventListener('click', () => {
+                    if (currentIndex < data.images.length - 1) {
+                        currentIndex++;
+                    } else {
+                        currentIndex = 0;
+                    }
+                    lightboxImage.src = data.images[currentIndex].src;
                 });
             });
     </script>
