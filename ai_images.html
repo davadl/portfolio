@@ -15,7 +15,7 @@
             max-width: 200px;
             margin: 10px; /* Added margin */
         }
-        .image-tile img, .image-tile video {
+        .image-tile img {
             width: 100%;
             height: auto;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -104,7 +104,6 @@
                         media.loading = "lazy";
                     }
                     media.addEventListener('click', () => {
-                        lightbox.style.display = 'flex';
                         if (image.type === 'video') {
                             lightboxImage.style.display = 'none';
                             lightboxVideo.style.display = 'block';
@@ -114,6 +113,7 @@
                             lightboxVideo.style.display = 'none';
                             lightboxImage.src = media.src;
                         }
+                        lightbox.style.display = 'flex';
                     });
                     const description = document.createElement('p');
                     description.textContent = image.description;
