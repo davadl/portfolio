@@ -40,6 +40,6 @@
     {"src": "./imgs/output_38_1.png", "alt": "Output 38", "description": "Description for Output 38"},
     {"src": "./imgs/output_39_1.png", "alt": "Output 39", "description": "Description for Output 39"},
     {"src": "./imgs/output_40_1.png", "alt": "Output 40", "description": "Description for Output 40"},
-    {"src": "./imgs/video_output_1.mp4", "alt": "Output 40", "description": "Description for Output 40"}
+    {"src": "./imgs/video_output_1.mp4", "alt": "Output 40", "description": "Description for Output 40", "type": "video"}
   ]
 }

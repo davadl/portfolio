@@ -61,20 +61,41 @@
                 const imageContainer = document.getElementById('imageContainer');
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImage = document.getElementById('lightboxImage');
+                const lightboxVideo = document.createElement('video');
+                lightboxVideo.style.display = 'none';
+                lightboxVideo.controls = true;
+                lightbox.appendChild(lightboxVideo);
                 data.images.forEach(image => {
                     const imageTile = document.createElement('div');
                     imageTile.className = 'image-tile';
-                    const img = document.createElement('img');
-                    img.src = image.src;
-                    img.alt = image.alt;
-                    img.loading = "lazy";
-                    img.addEventListener('click', () => {
+                    let media;
+                    if (image.type === 'video') {
+                        media = document.createElement('video');
+                        media.src = image.src;
+                        media.alt = image.alt;
+                        media.loading = "lazy";
+                        media.controls = true;
+                    } else {
+                        media = document.createElement('img');
+                        media.src = image.src;
+                        media.alt = image.alt;
+                        media.loading = "lazy";
+                    }
+                    media.addEventListener('click', () => {
                         lightbox.style.display = 'flex';
-                        lightboxImage.src = img.src;
+                        if (image.type === 'video') {
+                            lightboxImage.style.display = 'none';
+                            lightboxVideo.style.display = 'block';
+                            lightboxVideo.src = media.src;
+                        } else {
+                            lightboxImage.style.display = 'block';
+                            lightboxVideo.style.display = 'none';
+                            lightboxImage.src = media.src;
+                        }
                     });
                     const description = document.createElement('p');
                     description.textContent = image.description;
-                    imageTile.appendChild(img);
+                    imageTile.appendChild(media);
                     imageTile.appendChild(description);
                     imageContainer.appendChild(imageTile);
                 });
