@@ -67,6 +67,7 @@
                     const img = document.createElement('img');
                     img.src = image.src;
                     img.alt = image.alt;
+                    img.loading = "lazy";
                     img.addEventListener('click', () => {
                         lightbox.style.display = 'flex';
                         lightboxImage.src = img.src;
