@@ -85,6 +85,13 @@
         .next-arrow {
             right: 10px;
         }
+        .gallery-footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f2f2f2;
+            font-size: 14px;
+            color: #888;
+        }
     </style>
 </head>
 <body>
@@ -96,6 +103,10 @@
     </div>
     <div class="prev-arrow" id="prevArrow">&#8249;</div>
     <div class="next-arrow" id="nextArrow">&#8250;</div>
+    <div class="gallery-footer">
+        <p>Powered by AI Images</p>
+        <p>Image metadata: <span id="imageMetadata"></span></p>
+    </div>
 
     <script>
         fetch('image_store.json')
@@ -105,6 +116,7 @@
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImage = document.getElementById('lightboxImage');
                 const lightboxVideo = document.getElementById('lightboxVideo');
+                const imageMetadata = document.getElementById('imageMetadata');
                 data.images.forEach((image, index) => {
                     const imageTile = document.createElement('div');
                     imageTile.className = 'image-tile';
@@ -132,6 +144,7 @@
                             lightboxVideo.style.display = 'none';
                             lightboxImage.src = media.src;
                         }
+                        imageMetadata.textContent = image.description;
                     });
                     imageTile.appendChild(media);
                     imageContainer.appendChild(imageTile);
@@ -159,6 +172,7 @@
                         lightboxVideo.style.display = 'none';
                         lightboxImage.src = data.images[currentIndex].src;
                     }
+                    imageMetadata.textContent = data.images[currentIndex].description;
                 });
 
                 nextArrow.addEventListener('click', () => {
@@ -176,6 +190,7 @@
                         lightboxVideo.style.display = 'none';
                         lightboxImage.src = data.images[currentIndex].src;
                     }
+                    imageMetadata.textContent = data.images[currentIndex].description;
                 });
 
                 // Add event listeners for left and right arrow keys
