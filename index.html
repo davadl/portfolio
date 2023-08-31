@@ -1,131 +1,74 @@
 <!DOCTYPE html>
-
 <html>
   <head>
-    <title>Animated Matrix</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono|Roboto:wght@500&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    <title>Color Theme from Image</title>
     <style>
       body {
-        font-family: "JetBrains Mono", monospace;
-        background-color: #000;
-        color: #0f0;
-        margin: 0;
-        overflow: hidden;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        color: #333;
       }
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Roboto', sans-serif;
-      }
-      #portfolio {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        list-style: none;
-        padding: 0;
-      }
-      #portfolio img {
-        width: 200px;
-        height: 200px;
-        object-fit: cover;
-        margin: 10px;
-      }
-      .tabs-container {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-      }
-      .tabs-menu {
-        color: #0f0;
-        text-decoration: none;
-        margin-right: 10px;
-      }
-      .tabs-menu-active {
-        font-weight: bold;
-      }
-      .tabs-panel {
-        display: none;
-      }
-      .tabs-panel.fadeInDown {
-        display: block;
-        animation: fadeInDown 1s;
-      }
-      @keyframes fadeInDown {
-        from {
-          opacity: 0;
-          transform: translate3d(0, -100%, 0);
-        }
-        to {
-          opacity: 1;
-          transform: translate3d(0, 0, 0);
-        }
-      }
-      .footer {
-        position: fixed;
-        bottom: 10px;
-        right: 10px;
-        font-size: 12px;
-        animation: fadeIn 1s;
-      }
-      .footer a {
-        color: #0f0;
-        text-decoration: none;
-        margin-left: 5px;
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
+
+      .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
     </style>
   </head>
   <body>
-    <div class="tabs-container">
-      <a
-        class="tabs-menu tabs-menu-navigate tabs-menu-active"
-        data-target="tab1"
-        href="#"
-        >Contact Me</a
-      >
-      <a class="tabs-menu" href="about.html">About Me</a>
-      <a class="tabs-menu" href="david-adly.html">David Adly</a>
-      <a class="tabs-menu" href="master.html">Painter</a>
-      <a class="tabs-menu" href="gallery.html">Gallery</a>
+    <div class="container">
+      <h1>Color Theme from Image</h1>
+      <img id="image" src="path/to/your/image.jpg" alt="Image" />
+      <p>This is an example of applying a color theme based on the dominant color of an image.</p>
     </div>
-    <div class="tabs-panel fadeInDown" id="tab1">
-      <!-- Tab 1 content goes here -->
-      <h2>Contact Me</h2>
-      <p>Please feel free to contact me using the information below:</p>
-      <ul>
-        <li>Email: contact@example.com</li>
-        <li>Phone: +1 123 456 7890</li>
-        <li>Address: 123 Main Street, City, Country</li>
-      </ul>
-    </div>
-    <div id="portfolio" ></div>
-      <!-- link to gallery go here -->
-  <!--center -->
-      <center>
-      <a href="gallery.html">Gallery</a>
-    </center>
-      <h2>My Portfolio</h2>
-      <ul>
-        <!-- Add more photos as needed -->
-      </ul>
-    </div>
-    <canvas id="matrixCanvas"></canvas>
-    <div class="footer">
-      © 2023 Animated Matrix. All rights reserved. | Designed by
-      <a href="https://www.example.com">Your Name</a>
-    </div>
-    <!-- this should show the matrix animations in the background of the page without affecting links-->
 
-    <script src="index.js"></script>
+    <script>
+      // Function to extract the dominant color from an image
+      function getDominantColor(image) {
+        var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
+        context.drawImage(image, 0, 0);
+        var imageData = context.getImageData(0, 0, image.width, image.height).data;
+
+        var colorCount = {};
+        var maxCount = 0;
+        var dominantColor = null;
+
+        for (var i = 0; i < imageData.length; i += 4) {
+          var r = imageData[i];
+          var g = imageData[i + 1];
+          var b = imageData[i + 2];
+          var rgb = r + "," + g + "," + b;
+
+          if (colorCount[rgb]) {
+            colorCount[rgb]++;
+          } else {
+            colorCount[rgb] = 1;
+          }
+
+          if (colorCount[rgb] > maxCount) {
+            maxCount = colorCount[rgb];
+            dominantColor = rgb;
+          }
+        }
+
+        return "#" + dominantColor;
+      }
+
+      // Get the image element
+      var image = document.getElementById("image");
+
+      // Add event listener for the load event
+      image.addEventListener("load", function () {
+        // Get the dominant color
+        var dominantColor = getDominantColor(image);
+
+        // Apply the dominant color as the background color of the container
+        var container = document.querySelector(".container");
+        container.style.backgroundColor = dominantColor;
+      });
+    </script>
   </body>
 </html>
