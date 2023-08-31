@@ -42,7 +42,7 @@
             justify-content: center;
             align-items: center;
         }
-        #lightbox img {
+        #lightbox img, #lightbox video {
             max-width: 90%;
             max-height: 90%;
         }
@@ -72,6 +72,7 @@
     <div class="image-container" id="imageContainer"></div>
     <div id="lightbox" style="display: none;">
         <img id="lightboxImage">
+        <video id="lightboxVideo" controls></video>
     </div>
     <div class="prev-arrow" id="prevArrow">&#8249;</div>
     <div class="next-arrow" id="nextArrow">&#8250;</div>
@@ -83,10 +84,7 @@
                 const imageContainer = document.getElementById('imageContainer');
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImage = document.getElementById('lightboxImage');
-                const lightboxVideo = document.createElement('video');
-                lightboxVideo.style.display = 'none';
-                lightboxVideo.controls = true;
-                lightbox.appendChild(lightboxVideo);
+                const lightboxVideo = document.getElementById('lightboxVideo');
                 data.images.forEach((image, index) => {
                     const imageTile = document.createElement('div');
                     imageTile.className = 'image-tile';
@@ -135,7 +133,15 @@
                     } else {
                         currentIndex = data.images.length - 1;
                     }
-                    lightboxImage.src = data.images[currentIndex].src;
+                    if (data.images[currentIndex].type === 'video') {
+                        lightboxImage.style.display = 'none';
+                        lightboxVideo.style.display = 'block';
+                        lightboxVideo.src = data.images[currentIndex].src;
+                    } else {
+                        lightboxImage.style.display = 'block';
+                        lightboxVideo.style.display = 'none';
+                        lightboxImage.src = data.images[currentIndex].src;
+                    }
                 });
 
                 nextArrow.addEventListener('click', () => {
@@ -144,7 +150,15 @@
                     } else {
                         currentIndex = 0;
                     }
-                    lightboxImage.src = data.images[currentIndex].src;
+                    if (data.images[currentIndex].type === 'video') {
+                        lightboxImage.style.display = 'none';
+                        lightboxVideo.style.display = 'block';
+                        lightboxVideo.src = data.images[currentIndex].src;
+                    } else {
+                        lightboxImage.style.display = 'block';
+                        lightboxVideo.style.display = 'none';
+                        lightboxImage.src = data.images[currentIndex].src;
+                    }
                 });
             });
     </script>
