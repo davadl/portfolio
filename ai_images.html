@@ -14,6 +14,7 @@
             width: 100%;
             max-width: 200px;
             margin: 10px; /* Added margin */
+            position: relative; /* Added position */
         }
         .image-tile img, .image-tile video {
             width: 100%;
@@ -24,6 +25,19 @@
         .image-tile img:hover {
             transform: scale(1.05);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .image-tile .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 24px;
         }
         @media (max-width: 600px) {
             .image-container {
@@ -111,19 +125,17 @@
                         media.alt = image.alt;
                         media.loading = "lazy";
                     }
-                    media.addEventListener('click', () => {
-                        lightbox.style.display = 'flex';
-                        if (image.type === 'video') {
-                            lightboxImage.style.display = 'none';
-                            lightboxVideo.style.display = 'block';
-                            lightboxVideo.src = media.src;
-                        } else {
-                            lightboxImage.style.display = 'block';
-                            lightboxVideo.style.display = 'none';
-                            lightboxImage.src = media.src;
-                        }
+                    const loadingOverlay = document.createElement('div');
+                    loadingOverlay.className = 'loading-overlay';
+                    loadingOverlay.textContent = 'Loading...';
+                    media.addEventListener('load', () => {
+                        loadingOverlay.style.display = 'none';
+                    });
+                    media.addEventListener('error', () => {
+                        loadingOverlay.textContent = 'Error loading image';
                     });
                     imageTile.appendChild(media);
+                    imageTile.appendChild(loadingOverlay);
                     imageContainer.appendChild(imageTile);
                 });
                 lightbox.addEventListener('click', () => {
