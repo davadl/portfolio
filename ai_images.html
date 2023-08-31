@@ -51,7 +51,9 @@
 <body>
     <div class="image-container" id="imageContainer"></div>
     <div id="lightbox" style="display: none;">
+        <button id="prevButton">Previous</button>
         <img id="lightboxImage">
+        <button id="nextButton">Next</button>
     </div>
 
     <script>
@@ -61,7 +63,9 @@
                 const imageContainer = document.getElementById('imageContainer');
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImage = document.getElementById('lightboxImage');
-                data.images.forEach(image => {
+                let currentIndex = 0;
+                const images = data.images;
+                images.forEach((image, index) => {
                     const imageTile = document.createElement('div');
                     imageTile.className = 'image-tile';
                     const img = document.createElement('img');
@@ -71,6 +75,7 @@
                     img.addEventListener('click', () => {
                         lightbox.style.display = 'flex';
                         lightboxImage.src = img.src;
+                        currentIndex = index;
                     });
                     const description = document.createElement('p');
                     description.textContent = image.description;
@@ -80,6 +85,18 @@
                 });
                 lightbox.addEventListener('click', () => {
                     lightbox.style.display = 'none';
+                });
+                document.getElementById('prevButton').addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        lightboxImage.src = images[currentIndex].src;
+                    }
+                });
+                document.getElementById('nextButton').addEventListener('click', () => {
+                    if (currentIndex < images.length - 1) {
+                        currentIndex++;
+                        lightboxImage.src = images[currentIndex].src;
+                    }
                 });
             });
     </script>
