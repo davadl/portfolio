@@ -33,6 +33,14 @@
                 max-width: 100px;
             }
         }
+        @media (max-width: 400px) {
+            .image-container {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+            .image-tile {
+                max-width: 80px;
+            }
+        }
         #lightbox {
             position: fixed;
             top: 0;
