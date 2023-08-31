@@ -3,19 +3,26 @@
 <head>
     <title>AI Images</title>
     <style>
+        .gallery-header {
+            text-align: center;
+            padding: 20px;
+            background-color: #f2f2f2;
+            font-size: 24px;
+            font-weight: bold;
+        }
         .image-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 10px;
             justify-items: center;
-            padding: 20px; /* Added padding */
+            padding: 20px;
         }
         .image-tile {
             width: 100%;
             max-width: 200px;
-            margin: 10px; /* Added margin */
-            border: 1px solid #ddd; /* Added border */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added box shadow */
+            margin: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .image-tile:hover {
@@ -81,6 +88,7 @@
     </style>
 </head>
 <body>
+    <div class="gallery-header">AI Images Gallery</div>
     <div class="image-container" id="imageContainer"></div>
     <div id="lightbox" style="display: none;">
         <img id="lightboxImage">
