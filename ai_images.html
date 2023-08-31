@@ -3,22 +3,84 @@
 <head>
     <title>AI Images</title>
     <style>
-        .gallery-header {
-            text-align: center;
-            padding: 20px;
-            background-color: #f2f2f2;
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            justify-items: center;
+            padding: 20px; /* Added padding */
         }
-        .gallery-header h1 {
-            margin: 0;
+        .image-tile {
+            width: 100%;
+            max-width: 200px;
+            margin: 10px; /* Added margin */
+            border: 1px solid #ddd; /* Added border */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added box shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .image-tile:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .image-tile img, .image-tile video {
+            width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 600px) {
+            .image-container {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            .image-tile {
+                max-width: 100px;
+            }
+        }
+        @media (max-width: 400px) {
+            .image-container {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+            .image-tile {
+                max-width: 80px;
+            }
+        }
+        #lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #lightbox img, #lightbox video {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .prev-arrow, .next-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
             font-size: 24px;
-            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .prev-arrow {
+            left: 10px;
+        }
+        .next-arrow {
+            right: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="gallery-header">
-        <h1>AI Images Gallery</h1>
-    </div>
     <div class="image-container" id="imageContainer"></div>
     <div id="lightbox" style="display: none;">
         <img id="lightboxImage">
@@ -28,7 +90,95 @@
     <div class="next-arrow" id="nextArrow">&#8250;</div>
 
     <script>
-        // ... existing JavaScript code ...
+        fetch('image_store.json')
+            .then(response => response.json())
+            .then(data => {
+                const imageContainer = document.getElementById('imageContainer');
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImage = document.getElementById('lightboxImage');
+                const lightboxVideo = document.getElementById('lightboxVideo');
+                data.images.forEach((image, index) => {
+                    const imageTile = document.createElement('div');
+                    imageTile.className = 'image-tile';
+                    let media;
+                    if (image.type === 'video') {
+                        media = document.createElement('video');
+                        media.src = image.src;
+                        media.alt = image.alt;
+                        media.loading = "lazy";
+                        media.controls = true;
+                    } else {
+                        media = document.createElement('img');
+                        media.src = image.src;
+                        media.alt = image.alt;
+                        media.loading = "lazy";
+                    }
+                    media.addEventListener('click', () => {
+                        lightbox.style.display = 'flex';
+                        if (image.type === 'video') {
+                            lightboxImage.style.display = 'none';
+                            lightboxVideo.style.display = 'block';
+                            lightboxVideo.src = media.src;
+                        } else {
+                            lightboxImage.style.display = 'block';
+                            lightboxVideo.style.display = 'none';
+                            lightboxImage.src = media.src;
+                        }
+                    });
+                    imageTile.appendChild(media);
+                    imageContainer.appendChild(imageTile);
+                });
+                lightbox.addEventListener('click', () => {
+                    lightbox.style.display = 'none';
+                });
+
+                const prevArrow = document.getElementById('prevArrow');
+                const nextArrow = document.getElementById('nextArrow');
+                let currentIndex = 0;
+
+                prevArrow.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                    } else {
+                        currentIndex = data.images.length - 1;
+                    }
+                    if (data.images[currentIndex].type === 'video') {
+                        lightboxImage.style.display = 'none';
+                        lightboxVideo.style.display = 'block';
+                        lightboxVideo.src = data.images[currentIndex].src;
+                    } else {
+                        lightboxImage.style.display = 'block';
+                        lightboxVideo.style.display = 'none';
+                        lightboxImage.src = data.images[currentIndex].src;
+                    }
+                });
+
+                nextArrow.addEventListener('click', () => {
+                    if (currentIndex < data.images.length - 1) {
+                        currentIndex++;
+                    } else {
+                        currentIndex = 0;
+                    }
+                    if (data.images[currentIndex].type === 'video') {
+                        lightboxImage.style.display = 'none';
+                        lightboxVideo.style.display = 'block';
+                        lightboxVideo.src = data.images[currentIndex].src;
+                    } else {
+                        lightboxImage.style.display = 'block';
+                        lightboxVideo.style.display = 'none';
+                        lightboxImage.src = data.images[currentIndex].src;
+                    }
+                });
+
+                // Add event listeners for left and right arrow keys
+                document.addEventListener('keydown', (event) => {
+                    if (event.key === 'ArrowLeft') {
+                        prevArrow.click();
+                    } else if (event.key === 'ArrowRight') {
+                        nextArrow.click();
+                    }
+                });
+            });
     </script>
 </body>
 </html>
