@@ -115,10 +115,7 @@
                             lightboxImage.src = media.src;
                         }
                     });
-                    const description = document.createElement('p');
-                    description.textContent = image.description;
                     imageTile.appendChild(media);
-                    imageTile.appendChild(description);
                     imageContainer.appendChild(imageTile);
                 });
                 lightbox.addEventListener('click', () => {
