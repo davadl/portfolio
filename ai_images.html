@@ -95,20 +95,51 @@
             font-size: 14px;
             color: #888;
         }
+
+        /* Parallax scrolling effect */
+        .parallax {
+            perspective: 1px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 100vh;
+            position: relative;
+        }
+        .parallax__layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .parallax__layer--back {
+            transform: translateZ(-1px) scale(2);
+        }
+        .parallax__layer--base {
+            transform: translateZ(0);
+        }
     </style>
 </head>
 <body>
-    <div class="gallery-header">AI Images Gallery</div>
-    <div class="image-container" id="imageContainer"></div>
-    <div id="lightbox" style="display: none;">
-        <img id="lightboxImage">
-        <video id="lightboxVideo" controls></video>
-    </div>
-    <div class="prev-arrow" id="prevArrow">&#8249;</div>
-    <div class="next-arrow" id="nextArrow">&#8250;</div>
-    <div class="gallery-footer">
-        <p>Powered by AI Images</p>
-        <p>Image metadata: <span id="imageMetadata"></span></p>
+    <div class="parallax">
+        <div class="parallax__layer parallax__layer--back">
+            <!-- Background layer -->
+            <img src="path/to/background-image.jpg" alt="Background Image" />
+        </div>
+        <div class="parallax__layer parallax__layer--base">
+            <!-- Content layer -->
+            <div class="gallery-header">AI Images Gallery</div>
+            <div class="image-container" id="imageContainer"></div>
+            <div id="lightbox" style="display: none;">
+                <img id="lightboxImage">
+                <video id="lightboxVideo" controls></video>
+            </div>
+            <div class="prev-arrow" id="prevArrow">&#8249;</div>
+            <div class="next-arrow" id="nextArrow">&#8250;</div>
+            <div class="gallery-footer">
+                <p>Powered by AI Images</p>
+                <p>Image metadata: <span id="imageMetadata"></span></p>
+            </div>
+        </div>
     </div>
 
     <script>
