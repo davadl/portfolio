@@ -160,6 +160,15 @@
                         lightboxImage.src = data.images[currentIndex].src;
                     }
                 });
+
+                // Add event listeners for left and right arrow keys
+                document.addEventListener('keydown', (event) => {
+                    if (event.key === 'ArrowLeft') {
+                        prevArrow.click();
+                    } else if (event.key === 'ArrowRight') {
+                        nextArrow.click();
+                    }
+                });
             });
     </script>
 </body>
