@@ -203,6 +203,13 @@
                         nextArrow.click();
                     }
                 });
+
+                // Add event listener for 'g' key to bring up lightbox view
+                document.addEventListener('keydown', (event) => {
+                    if (event.key === 'g') {
+                        lightbox.style.display = 'flex';
+                    }
+                });
             });
     </script>
 </body>
