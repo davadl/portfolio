@@ -3,10 +3,37 @@
 <head>
     <title>AI Images</title>
     <style>
-        /* ... existing styles ... */
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            justify-items: center;
+            padding: 20px; /* Added padding */
+        }
+        .image-tile {
+            width: 100%;
+            max-width: 200px;
+            margin: 10px; /* Added margin */
+        }
+        .image-tile img, .image-tile video {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-        /* Fullscreen mode */
-        .fullscreen {
+        .image-tile img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 600px) {
+            .image-container {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            .image-tile {
+                max-width: 100px;
+            }
+        }
+        #lightbox {
             position: fixed;
             top: 0;
             left: 0;
@@ -16,52 +43,132 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
         }
-        .fullscreen img, .fullscreen video {
+        #lightbox img, #lightbox video {
             max-width: 90%;
             max-height: 90%;
+        }
+        .prev-arrow, .next-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .prev-arrow {
+            left: 10px;
+        }
+        .next-arrow {
+            right: 10px;
         }
     </style>
 </head>
 <body>
-    <!-- ... existing code ... -->
+    <div class="image-container" id="imageContainer"></div>
+    <div id="lightbox" style="display: none;">
+        <img id="lightboxImage">
+        <video id="lightboxVideo" controls></video>
+    </div>
+    <div class="prev-arrow" id="prevArrow">&#8249;</div>
+    <div class="next-arrow" id="nextArrow">&#8250;</div>
 
     <script>
-        // ... existing code ...
+        fetch('image_store.json')
+            .then(response => response.json())
+            .then(data => {
+                const imageContainer = document.getElementById('imageContainer');
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImage = document.getElementById('lightboxImage');
+                const lightboxVideo = document.getElementById('lightboxVideo');
+                data.images.forEach((image, index) => {
+                    const imageTile = document.createElement('div');
+                    imageTile.className = 'image-tile';
+                    let media;
+                    if (image.type === 'video') {
+                        media = document.createElement('video');
+                        media.src = image.src;
+                        media.alt = image.alt;
+                        media.loading = "lazy";
+                        media.controls = true;
+                    } else {
+                        media = document.createElement('img');
+                        media.src = image.src;
+                        media.alt = image.alt;
+                        media.loading = "lazy";
+                    }
+                    media.addEventListener('click', () => {
+                        lightbox.style.display = 'flex';
+                        if (image.type === 'video') {
+                            lightboxImage.style.display = 'none';
+                            lightboxVideo.style.display = 'block';
+                            lightboxVideo.src = media.src;
+                        } else {
+                            lightboxImage.style.display = 'block';
+                            lightboxVideo.style.display = 'none';
+                            lightboxImage.src = media.src;
+                        }
+                    });
+                    imageTile.appendChild(media);
+                    imageContainer.appendChild(imageTile);
+                });
+                lightbox.addEventListener('click', () => {
+                    lightbox.style.display = 'none';
+                });
 
-        // Fullscreen mode
-        const fullscreen = document.createElement('div');
-        fullscreen.className = 'fullscreen';
-        const fullscreenMedia = document.createElement('img');
-        fullscreenMedia.id = 'fullscreenMedia';
-        fullscreen.appendChild(fullscreenMedia);
-        document.body.appendChild(fullscreen);
+                const prevArrow = document.getElementById('prevArrow');
+                const nextArrow = document.getElementById('nextArrow');
+                let currentIndex = 0;
 
-        function enterFullscreen(src) {
-            fullscreenMedia.src = src;
-            fullscreen.style.display = 'flex';
-        }
+                prevArrow.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                    } else {
+                        currentIndex = data.images.length - 1;
+                    }
+                    if (data.images[currentIndex].type === 'video') {
+                        lightboxImage.style.display = 'none';
+                        lightboxVideo.style.display = 'block';
+                        lightboxVideo.src = data.images[currentIndex].src;
+                    } else {
+                        lightboxImage.style.display = 'block';
+                        lightboxVideo.style.display = 'none';
+                        lightboxImage.src = data.images[currentIndex].src;
+                    }
+                });
 
-        function exitFullscreen() {
-            fullscreen.style.display = 'none';
-        }
+                nextArrow.addEventListener('click', () => {
+                    if (currentIndex < data.images.length - 1) {
+                        currentIndex++;
+                    } else {
+                        currentIndex = 0;
+                    }
+                    if (data.images[currentIndex].type === 'video') {
+                        lightboxImage.style.display = 'none';
+                        lightboxVideo.style.display = 'block';
+                        lightboxVideo.src = data.images[currentIndex].src;
+                    } else {
+                        lightboxImage.style.display = 'block';
+                        lightboxVideo.style.display = 'none';
+                        lightboxImage.src = data.images[currentIndex].src;
+                    }
+                });
 
-        // ... existing code ...
-
-        media.addEventListener('click', () => {
-            if (image.type === 'video') {
-                enterFullscreen(media.src);
-            } else {
-                enterFullscreen(media.src);
-            }
-        });
-
-        fullscreen.addEventListener('click', () => {
-            exitFullscreen();
-        });
-
-        // ... existing code ...
+                // Add event listeners for left and right arrow keys
+                document.addEventListener('keydown', (event) => {
+                    if (event.key === 'ArrowLeft') {
+                        prevArrow.click();
+                    } else if (event.key === 'ArrowRight') {
+                        nextArrow.click();
+                    }
+                });
+            });
     </script>
 </body>
 </html>
