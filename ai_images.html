@@ -25,27 +25,54 @@
                 max-width: 100px;
             }
         }
+        #lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
     </style>
 </head>
 <body>
     <div class="image-container" id="imageContainer"></div>
+    <div id="lightbox" style="display: none;">
+        <img id="lightboxImage">
+    </div>
 
     <script>
         fetch('image_store.json')
             .then(response => response.json())
             .then(data => {
                 const imageContainer = document.getElementById('imageContainer');
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImage = document.getElementById('lightboxImage');
                 data.images.forEach(image => {
                     const imageTile = document.createElement('div');
                     imageTile.className = 'image-tile';
                     const img = document.createElement('img');
                     img.src = image.src;
                     img.alt = image.alt;
+                    img.addEventListener('click', () => {
+                        lightbox.style.display = 'flex';
+                        lightboxImage.src = img.src;
+                    });
                     const description = document.createElement('p');
                     description.textContent = image.description;
                     imageTile.appendChild(img);
                     imageTile.appendChild(description);
                     imageContainer.appendChild(imageTile);
+                });
+                lightbox.addEventListener('click', () => {
+                    lightbox.style.display = 'none';
                 });
             });
     </script>
